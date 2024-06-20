@@ -117,7 +117,7 @@ def convertToMV(assign):
 # print(verify(assignment1, np.argsort([0, 1, 9, 3, 2, 4, 5, 7, 6, 8])))
 # print(verify(assignment1, np.argsort([0, 1, 3, 2, 9, 4, 5, 7, 6, 8]))) # this is fixed
 
-for compressed_assignment in itertools.product([1, 2, 3, 4], repeat=4):
+for compressed_assignment in list(itertools.product([1, 2, 3, 4], repeat=4)):
     count = 0
     for perm in itertools.permutations(range(2 * n)):
         count += verify(convertToMV(compressed_assignment), np.argsort(perm))
