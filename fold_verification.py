@@ -5,7 +5,7 @@ Given a 2xn grid with MV assignment and an ordering of faces, determine if this 
 import itertools
 import numpy as np
 
-n = 5
+n = 4
 
 adj = {}
 for face in range(2 * n):
@@ -21,7 +21,10 @@ for face in range(2 * n):
 
 bottom_edges = [(i, i+1) for i in range(0, 2 * n, 2)]
 left_edges = [(i, i+2) for i in range(0, 2 * n - 2, 4)] + [(i, i+2) for i in range(1, 2 * n - 2, 4)]
-right_edges = [(i, i+2) for i in range(2, 2 * n - 1, 4)] + [(i, i+2) for i in range(3, 2 * n - 2, 4)]
+right_edges = [(i, i+2) for i in range(2, 2 * n - 2, 4)] + [(i, i+2) for i in range(3, 2 * n - 2, 4)]
+# print(bottom_edges)
+# print(left_edges)
+# print(right_edges)
 
 positive_faces = list(range(0, 2*n, 4)) + list(range(3, 2*n, 4))
 negative_faces = list(range(2, 2*n, 4)) + list(range(1, 2*n, 4))
@@ -117,7 +120,7 @@ def convertToMV(assign):
 # print(verify(assignment1, np.argsort([0, 1, 9, 3, 2, 4, 5, 7, 6, 8])))
 # print(verify(assignment1, np.argsort([0, 1, 3, 2, 9, 4, 5, 7, 6, 8]))) # this is fixed
 
-for compressed_assignment in list(itertools.product([1, 2, 3, 4], repeat=4)):
+for compressed_assignment in [[2, 2, 2, 2]]:# list(itertools.product([1, 2, 3, 4], repeat=4)):
     count = 0
     for perm in itertools.permutations(range(2 * n)):
         count += verify(convertToMV(compressed_assignment), np.argsort(perm))
