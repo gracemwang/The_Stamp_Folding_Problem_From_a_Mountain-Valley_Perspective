@@ -1,3 +1,5 @@
+'''Writes code to generate the edges of a poset given the MV assignment'''
+
 def convertToMV(assign):
     edge_assign = {}
     edge_assign[(0,1)] = -1
@@ -24,6 +26,7 @@ def convertToMV(assign):
 
 def gen_poset(MV_assign):
     poset = []
+    # Loops over edges and adds them (using parity of edge and of face location)
     for edge in MV_assign:
         if (edge[0]%4 == 0 or edge[0]%4 == 3):
             if (MV_assign[edge] == -1):
@@ -37,4 +40,4 @@ def gen_poset(MV_assign):
                 poset.append([edge[1], edge[0]])
     return poset
 
-print(gen_poset(convertToMV([1,3,1,4])))
+print(gen_poset(convertToMV([2,2,2,2])))
