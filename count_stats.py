@@ -1,3 +1,7 @@
+"""
+Analyze counts.txt and make a histogram of the counts.
+"""
+
 import matplotlib.pyplot as plt
 
 # Read numbers from a file
