@@ -1,4 +1,6 @@
-'''Writes code to generate the edges of a poset given the MV assignment'''
+"""
+Writes code to generate the edges of a poset given the MV assignment
+"""
 
 def convertToMV(assign):
     edge_assign = {}
