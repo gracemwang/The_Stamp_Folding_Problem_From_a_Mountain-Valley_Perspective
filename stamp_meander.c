@@ -29,10 +29,22 @@ Interval interval[MAX_VAL];
 List perm;
 Node node[MAX_VAL];
 int N, MV, total=0;
+char assignment[MAX_VAL];
 
 //--------------------------------------------------------------------------------
-void Input() {
-    printf("ENTER gridlength n: ");    scanf("%d", &N);
+int Input() {
+    printf("ENTER gridlength n: ");
+    scanf("%d", &N);
+    printf("ENTER MV assignment (ex. MVMV): ");
+    scanf("%s", assignment);
+    int i;
+    for (i = 0; i < MAX_VAL; i++) if (assignment[i] != 'M' && assignment[i] != 'V') break;
+//    printf("%d", i);
+    if (i != N-1) {
+        printf("ERROR. MV assignment is not of length N-1.");
+        return 1;
+    }
+    return 0;
 }
 //--------------------------------------------------------------------------------
 void Print() {
@@ -48,8 +60,8 @@ void Print() {
         if (a[j] < N-a[N-j+1]+1) break;
     }
 
-    //for (j=1; j<=N; j++) printf("%d ", a[j]);
-    //printf("\n");
+//    for (j=1; j<=N; j++) printf("%d ", a[j]);
+//    printf("\n");
     total++;
 }
 //--------------------------------------------------------------------------------
@@ -133,8 +145,16 @@ void Gen(int t, Node* X, int depth) {
 
     if (t > N) Print();
     else {
+        // THIS IS THE MODIFICATION WE MADE
+        side = 1;
+        if (t % 2 == 0 && assignment[t-2] == 'M' || t % 2 == 1 && assignment[t-2] == 'V') {
+            side = 2;
+        }
+
         // VISIT LEFT LIST, THEN RIGHT LIST
-        for (side=1; side<=2; side++) {
+//        for (side=1; side<=2; side++) {
+
+
             up = 0;
             if (side == 1) i = X->L.head;
             else  i = X->R.head;
@@ -228,12 +248,14 @@ void Gen(int t, Node* X, int depth) {
                 }
 
                 i = n;	// NEXT INTERVAL
-            }	}	}	}
+            }	}	}
+//            }
 //--------------------------------------------------------------------------------
 int main() {
     int i,j;
 
-    Input();
+    int k = Input();
+    if (k) return k;
 
     // INITIALIZE NODES
     for (i=0; i<=2*N; i++) {
