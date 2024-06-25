@@ -4,6 +4,7 @@
 //------------------------------------------------------
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 #define MAX(a,b) ((a > b) ? a : b)
 #define MAX_VAL 99
 #define NULL -1
@@ -251,30 +252,47 @@ void Gen(int t, Node* X, int depth) {
             }	}	}
 //            }
 //--------------------------------------------------------------------------------
-int main() {
-    int i,j;
+int RunOnce() {
+  int i,j;
+  // INITIALIZE NODES
+  for (i=0; i<=2*N; i++) {
+      node[i].L.head = node[i].L.tail = NULL;
+      node[i].R.head = node[i].R.tail = NULL;
+      node[i].up_interval = NULL;
+      node[i].up_side = '-';
+  }
 
-    int k = Input();
-    if (k) return k;
+  SetNode(0, 2, 'r');
+  InsertInterval(&node[0].L, 1, 0, 1, NULL, NULL, 2);
+  InsertInterval(&node[0].R, 2, 1, MAX_VAL, NULL, NULL, 1);
 
-    // INITIALIZE NODES
-    for (i=0; i<=2*N; i++) {
-        node[i].L.head = node[i].L.tail = NULL;
-        node[i].R.head = node[i].R.tail = NULL;
-        node[i].up_interval = NULL;
-        node[i].up_side = '-';
+  perm.head = 1;
+  interval[1].prev_perm = NULL;
+  interval[1].next_perm = 2;
+  interval[2].prev_perm = 1;
+  interval[2].next_perm = NULL;
+
+  Gen(2, &node[0], 0);
+  printf("%s %d\n", assignment, total);
+}
+
+int RunAll() {
+  for (int i = 0; i < (1 << (N-1)); i++){
+    for (int j = 0; j < N-1; j++){
+      if ((i & (1 << j)) >> j){
+        assignment[j] = 'M';
+      }
+      else {
+        assignment[j] = 'V';
+      }
     }
+    total = 0;
+    RunOnce();
+  }
+}
 
-    SetNode(0, 2, 'r');
-    InsertInterval(&node[0].L, 1, 0, 1, NULL, NULL, 2);
-    InsertInterval(&node[0].R, 2, 1, MAX_VAL, NULL, NULL, 1);
-
-    perm.head = 1;
-    interval[1].prev_perm = NULL;
-    interval[1].next_perm = 2;
-    interval[2].prev_perm = 1;
-    interval[2].next_perm = NULL;
-
-    Gen(2, &node[0], 0);
-    printf("Total = %d\n", total);
+int main(int argc, char *argv[]) {
+    N = atoi(argv[1]);
+    RunAll();
+    return 0;
 }

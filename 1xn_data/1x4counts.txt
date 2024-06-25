@@ -1,0 +1,8 @@
+VVV 3
+MVV 2
+VMV 1
+MMV 2
+VVM 2
+MVM 1
+VMM 2
+MMM 3
