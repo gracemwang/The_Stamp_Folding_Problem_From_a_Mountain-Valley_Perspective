@@ -1,5 +1,5 @@
 //------------------------------------------------------
-// STAMP FOLDINGS (Can be adapted to include MV assignments)
+// STAMP FOLDINGS - Adapted to count for a given MV assignment
 // Adapted from:   Joe Sawada, Roy Li
 //------------------------------------------------------
 #include <stdio.h>
@@ -273,7 +273,8 @@ int RunOnce() {
   interval[2].next_perm = NULL;
 
   Gen(2, &node[0], 0);
-  printf("%s %d\n", assignment, total);
+  // printf("%s %d\n", assignment, total);
+  printf("%d\n", total);
 }
 
 int RunAll() {
