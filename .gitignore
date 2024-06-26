@@ -1,4 +1,6 @@
 .DS_Stores
-.ipynb_checkpoints/count_w_sage-checkpoint.ipynb
+.ipynb_checkpoints/
 .DS_Store
 .out
+stamp_meander
+__pycache__/

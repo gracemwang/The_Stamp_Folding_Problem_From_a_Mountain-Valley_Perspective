@@ -1,5 +1,8 @@
 """
-Runs the stamp_meander executable and pipes the output here for easier processing.
+To use this, compile stamp_meander.c to an exec called stamp_meander:
+gcc stamp_meander.c -o stamp_meander.
+
+Runs the executable and pipes the output here for easier processing.
 """
 
 import subprocess
