@@ -1,5 +1,7 @@
 //------------------------------------------------------
 // STAMP FOLDINGS - Adapted to count for a given MV assignment
+// USAGE: stamp_meander 0 (n) -> run all assignments for 1xn and output the counts one per line in lexicographic order (V = 0, M = 1)
+// stamp_meander 1 (assignment) --> run this assignment and print the count
 // Adapted from:   Joe Sawada, Roy Li
 //------------------------------------------------------
 #include <stdio.h>
@@ -293,7 +295,18 @@ int RunAll() {
 }
 
 int main(int argc, char *argv[]) {
-    N = atoi(argv[1]);
-    RunAll();
+    if (atoi(argv[1]) == 0) {
+        N = atoi(argv[2]);
+        RunAll();
+    } else {
+        for (N=0; N < MAX_VAL; N++) if (argv[2][N] != 'M' && argv[2][N] != 'V') break;
+        N++;
+//        printf("%s, %d\n", argv[2], N);
+        for (int i = 0; i < sizeof(argv[2]); i++) {
+            assignment[i] = argv[2][i];
+        }
+        RunOnce();
+    }
+
     return 0;
 }
