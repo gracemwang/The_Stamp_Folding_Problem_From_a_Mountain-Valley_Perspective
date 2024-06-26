@@ -6,3 +6,5 @@ Potential directions for future experimental efforts:
 - implement the result in Nishat 2009 that would reduce the verification from quadratic to linear
 - use optimization software and encode the constraints as an MILP or other program, which may or may not run faster
 - continue to explore the substring exclusion idea (see `gen_bad.ipynb`) to speed things up
+
+Fast generation of valid foldings of a 1 x n stamp map, adapting code by Sawada, in `stamp_meander.c`. Outputed data is in `1xn_data`
