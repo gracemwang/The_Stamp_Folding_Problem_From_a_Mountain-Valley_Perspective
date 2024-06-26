@@ -22,22 +22,22 @@ def gen_array(poset):
                 out[(i*l) + right] = 1
     return out
 
-def check_down(m):
-    l = math.floor(math.sqrt(len(m)))
-    num_edges = l // 2
-    for i in range(num_edges):
-        for j in range(i, num_edges):
-            if out[i*l + i+1] == 1 and out[j*l + j+1] == 1:
-                #0 < 1 and 2 < 3
-            else if out[i*l + i+1] == 1 and out[j*l + j+1] == -1:
-                #0 < 1 and 2 > 3
-            else if out[i*l + i+1] == -1 and out[j*l + j+1] == 1:
-                #0 > 1 and 2 < 3
-            else if out[i*l + i+1] == -1 and out[j*l + j+1] == -1:
-                #0 > 1 and 2 > 3
-            else:
-                print("Shucks")
-                exit()
+# def check_down(m):
+#     l = math.floor(math.sqrt(len(m)))
+#     num_edges = l // 2
+#     for i in range(num_edges):
+#         for j in range(i, num_edges):
+#             if out[i*l + i+1] == 1 and out[j*l + j+1] == 1:
+#                 #0 < 1 and 2 < 3
+#             else if out[i*l + i+1] == 1 and out[j*l + j+1] == -1:
+#                 #0 < 1 and 2 > 3
+#             else if out[i*l + i+1] == -1 and out[j*l + j+1] == 1:
+#                 #0 > 1 and 2 < 3
+#             else if out[i*l + i+1] == -1 and out[j*l + j+1] == -1:
+#                 #0 > 1 and 2 > 3
+#             else:
+#                 print("Shucks")
+#                 exit()
 
 def print_matrix(m):
     l = math.floor(math.sqrt(len(m)))
@@ -49,6 +49,6 @@ def print_matrix(m):
                 print(m[i*l + j], end="  ")
         print("\n")
 
-myPos = make_poset.gen_poset(make_poset.convertToMV([2,3,1,4]))
+myPos = make_poset.gen_poset(make_poset.convertToMV([2,4,2,4]))
 myMat = gen_array(myPos)
 print_matrix(myMat)
