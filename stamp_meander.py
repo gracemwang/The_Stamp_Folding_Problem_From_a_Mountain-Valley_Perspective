@@ -25,5 +25,7 @@ Convert from the index in an array of counts to the assignment at that index. Ex
 def get_assignment(index, n):
     return ("{0:0"+str(n)+"b}").format(index, n).replace('0', 'V').replace('1', 'M')
 
+print('MMVV' * 4)
+
 for k in range(20):
-    print(run_one('MV' * k))
+    print(run_one('MMVV' * k))

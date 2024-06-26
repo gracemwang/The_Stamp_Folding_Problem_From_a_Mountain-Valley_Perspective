@@ -150,6 +150,7 @@ void Gen(int t, Node* X, int depth) {
     else {
         // THIS IS THE MODIFICATION WE MADE
 
+        side = 1;
         if (t % 2 == 0 && assignment[t-2] == 'V' || t % 2 == 1 && assignment[t-2] == 'M') {
             side = 2;
         }
