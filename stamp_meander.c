@@ -149,8 +149,8 @@ void Gen(int t, Node* X, int depth) {
     if (t > N) Print();
     else {
         // THIS IS THE MODIFICATION WE MADE
-        side = 1;
-        if (t % 2 == 0 && assignment[t-2] == 'M' || t % 2 == 1 && assignment[t-2] == 'V') {
+
+        if (t % 2 == 0 && assignment[t-2] == 'V' || t % 2 == 1 && assignment[t-2] == 'M') {
             side = 2;
         }
 
@@ -301,8 +301,7 @@ int main(int argc, char *argv[]) {
     } else {
         for (N=0; N < MAX_VAL; N++) if (argv[2][N] != 'M' && argv[2][N] != 'V') break;
         N++;
-//        printf("%s, %d\n", argv[2], N);
-        for (int i = 0; i < sizeof(argv[2]); i++) {
+        for (int i = 0; i < N-1; i++) {
             assignment[i] = argv[2][i];
         }
         RunOnce();
