@@ -20,6 +20,15 @@ def run_one(assignment):
     return int(subprocess.Popen(["./stamp_meander", "1", assignment], stdout=subprocess.PIPE).communicate()[0].decode())
 
 '''
+Run a particular assignment and get the valid permutations
+'''
+def get_perms(assignment):
+    perms = list(subprocess.Popen(["./stamp_meander", "2", assignment], stdout=subprocess.PIPE).communicate()[0].decode().split("\n")[:-2])
+    for i in range(len(perms)):
+        perms[i] = list(map(int, perms[i].split(" ")[:-1]))
+    return perms
+
+'''
 Convert from the index in an array of counts to the assignment at that index. Example: get_assignment(12, 6) -> "VVMMVV"
 '''
 def get_assignment(index, n):
@@ -34,8 +43,6 @@ def kthdiff(nums, k):
     return first_diff(kthdiff(nums, k-1))
 
 # pattern experiments!
-nums = list(run_one('M' * k + 'V' * k) for k in range(1, 6))
+# nums = list(run_one('M' * k + 'V' * k) for k in range(1, 6))
 
-print(nums)
-print(first_diff(nums))
-print(kthdiff(nums, 2))
+print(get_perms('MMVVMMVV'))

@@ -1,7 +1,9 @@
 //------------------------------------------------------
 // STAMP FOLDINGS - Adapted to count for a given MV assignment
-// USAGE: stamp_meander 0 (n) -> run all assignments for 1xn and output the counts one per line in lexicographic order (V = 0, M = 1)
+// USAGE:
+// stamp_meander 0 (n) -> run all assignments for 1xn and output the counts one per line in lexicographic order (V = 0, M = 1)
 // stamp_meander 1 (assignment) --> run this assignment and print the count
+// stamp_meander 2 (assignment) --> run the assignment, print the valid permutations and the count
 // Adapted from:   Joe Sawada, Roy Li
 //------------------------------------------------------
 #include <stdio.h>
@@ -50,7 +52,7 @@ int Input() {
     return 0;
 }
 //--------------------------------------------------------------------------------
-void Print() {
+void Print(int print_perms) {
     int i, j=0, one=0, a[MAX_VAL];
 
     i=perm.head;
@@ -63,8 +65,11 @@ void Print() {
         if (a[j] < N-a[N-j+1]+1) break;
     }
 
-//    for (j=1; j<=N; j++) printf("%d ", a[j]);
-//    printf("\n");
+    if (print_perms != 0) {
+        for (j=1; j<=N; j++) printf("%d ", a[j]-1);
+        printf("\n");
+    }
+
     total++;
 }
 //--------------------------------------------------------------------------------
@@ -142,11 +147,11 @@ void RestorePerm(int t,int i) {
     if (n != NULL) interval[n].prev_perm = i;
 }
 //--------------------------------------------------------------------------------
-void Gen(int t, Node* X, int depth) {
+void Gen(int t, Node* X, int depth, int print_perms) {
     Node *Y;
     int i, up, j, n, p, old_up_side, old_up_interval, side, k;
 
-    if (t > N) Print();
+    if (t > N) Print(print_perms);
     else {
         // THIS IS THE MODIFICATION WE MADE
 
@@ -231,9 +236,9 @@ void Gen(int t, Node* X, int depth) {
                 UpdatePerm(t,i);
 
                 // MAKE RECURSIVE CALLS
-                if (depth == 0 && (i== X->R.tail || i == X->L.head)) Gen(t+1, Y, 0);
-                else if (X->up_interval == i)  Gen(t+1, Y, MAX(0,depth-1));
-                else Gen(t+1, Y, depth+1);
+                if (depth == 0 && (i== X->R.tail || i == X->L.head)) Gen(t+1, Y, 0, print_perms);
+                else if (X->up_interval == i)  Gen(t+1, Y, MAX(0,depth-1), print_perms);
+                else Gen(t+1, Y, depth+1, print_perms);
 
                 // RESTORE DATA STRUCTURES
                 RestorePerm(t,i);
@@ -255,7 +260,7 @@ void Gen(int t, Node* X, int depth) {
             }	}	}
 //            }
 //--------------------------------------------------------------------------------
-int RunOnce() {
+int RunOnce(int print_perms) {
   int i,j;
   // INITIALIZE NODES
   for (i=0; i<=2*N; i++) {
@@ -275,7 +280,7 @@ int RunOnce() {
   interval[2].prev_perm = 1;
   interval[2].next_perm = NULL;
 
-  Gen(2, &node[0], 0);
+  Gen(2, &node[0], 0, print_perms);
   // printf("%s %d\n", assignment, total);
   printf("%d\n", total);
 }
@@ -291,7 +296,7 @@ int RunAll() {
       }
     }
     total = 0;
-    RunOnce();
+    RunOnce(0);
   }
 }
 
@@ -305,7 +310,8 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < N-1; i++) {
             assignment[i] = argv[2][i];
         }
-        RunOnce();
+        // if first arg is 2, print all perms, if its 1 dont
+        RunOnce(atoi(argv[1]) == 2);
     }
 
     return 0;
