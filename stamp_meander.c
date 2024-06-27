@@ -8,7 +8,7 @@
 #include <math.h>
 #include <stdlib.h>
 #define MAX(a,b) ((a > b) ? a : b)
-#define MAX_VAL 99
+#define MAX_VAL 500
 #define NULL -1
 
 typedef struct List {

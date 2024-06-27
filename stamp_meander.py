@@ -25,6 +25,17 @@ Convert from the index in an array of counts to the assignment at that index. Ex
 def get_assignment(index, n):
     return ("{0:0"+str(n)+"b}").format(index, n).replace('0', 'V').replace('1', 'M')
 
+def first_diff(nums):
+    return list(nums[i] - nums[i-1] for i in range(1, len(nums)))
+
+def kthdiff(nums, k):
+    if k == 1:
+        return first_diff(nums)
+    return first_diff(kthdiff(nums, k-1))
+
 # pattern experiments!
-nums = list(run_one('MMMV' * k) for k in range(1, 13))
+nums = list(run_one('M' * k + 'V' * k) for k in range(1, 6))
+
 print(nums)
+print(first_diff(nums))
+print(kthdiff(nums, 2))
