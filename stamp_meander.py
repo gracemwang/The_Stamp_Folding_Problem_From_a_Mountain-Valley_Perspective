@@ -4,8 +4,10 @@ gcc stamp_meander.c -o stamp_meander.
 
 Runs the executable and pipes the output here for easier processing.
 """
-
+import random
 import subprocess
+
+import matplotlib.pyplot as plt
 
 '''
 Run all the assignments for 1xn. Returns a list of counts in lexicographic order (V = 0, M = 1).
@@ -45,4 +47,11 @@ def kthdiff(nums, k):
 # pattern experiments!
 # nums = list(run_one('M' * k + 'V' * k) for k in range(1, 6))
 
-print(get_perms('MMVVMMVV'))
+def get_random_assignment(n):
+    s = ''
+    for i in range(n):
+        s += random.choice(['M', 'V'])
+    return s
+
+for k in range(1, 15):
+    print(run_one('M' + 'V' * k))
