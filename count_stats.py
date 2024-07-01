@@ -36,7 +36,7 @@ for n in range(4, N+1):
 
 for n in range(10, 23):
     plt.figure(figsize=(10, 6))
-    plt.hist(numbers[n], bins= maxes[n], edgecolor='black')
+    plt.hist(numbers[n], bins=min(maxes[n], 100), edgecolor='black')
     plt.xlabel('# of ways to fold')
     plt.ylabel("# of MV assignments that achieve X ways to fold")
     plt.title("The 1x{} case".format(n))

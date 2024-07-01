@@ -53,5 +53,16 @@ def get_random_assignment(n):
         s += random.choice(['M', 'V'])
     return s
 
-for k in range(1, 15):
-    print(run_one('M' + 'V' * k))
+x = []
+y = []
+n = 20
+for _ in range(10000):
+    s = get_random_assignment(n)
+    x.append(run_one(s))
+    y.append(run_one(s + 'M') / x[-1])
+
+plt.scatter(x, y)
+plt.xlabel('count(s)')
+plt.ylabel('count(s + \'M\') / counts(s)')
+plt.title('n = {}'.format(n) + ', 1000 random trials')
+plt.show()
