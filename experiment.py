@@ -4,8 +4,10 @@ gcc stamp_meander.c -o stamp_meander.
 
 Runs the executable and pipes the output here for easier processing.
 """
+import itertools
 import random
 import subprocess
+import numpy as np
 
 import matplotlib.pyplot as plt
 
@@ -44,25 +46,38 @@ def kthdiff(nums, k):
         return first_diff(nums)
     return first_diff(kthdiff(nums, k-1))
 
-# pattern experiments!
-# nums = list(run_one('M' * k + 'V' * k) for k in range(1, 6))
-
 def get_random_assignment(n):
     s = ''
     for i in range(n):
         s += random.choice(['M', 'V'])
     return s
 
-x = []
-y = []
-n = 20
-for _ in range(10000):
-    s = get_random_assignment(n)
-    x.append(run_one(s))
-    y.append(run_one(s + 'M') / x[-1])
+best_value = 0
+best_str = ""
 
-plt.scatter(x, y)
-plt.xlabel('count(s)')
-plt.ylabel('count(s + \'M\') / counts(s)')
-plt.title('n = {}'.format(n) + ', 1000 random trials')
-plt.show()
+N = 31
+seq = list(nums for nums in itertools.product([2, 3], repeat=14) if sum(nums) == N-1)
+
+for iter, nums in enumerate(seq):
+    print(iter, len(seq), best_value, best_str)
+    
+    s = ""
+    for i in range(len(nums)):
+        if i % 2 == 0:
+            s += 'M' * nums[i]
+        else:
+            s += 'V' * nums[i]
+    
+    s += '-'
+    
+    if len(s) != N:
+        continue
+    
+    val = run_one(s)
+    
+    if best_value < val:
+        best_value = val
+        best_str = s
+    
+print("COMPLETE")
+print(N, best_value, best_str)
