@@ -56,7 +56,7 @@ best_value = 0
 best_str = ""
 
 N = 31
-seq = list(nums for nums in itertools.product([2, 3], repeat=14) if sum(nums) == N-1)
+seq = list(nums for nums in itertools.product([2, 3], repeat=13) if sum(nums) == N-1)
 
 for iter, nums in enumerate(seq):
     print(iter, len(seq), best_value, best_str)
