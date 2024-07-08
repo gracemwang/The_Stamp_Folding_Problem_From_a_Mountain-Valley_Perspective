@@ -52,32 +52,41 @@ def get_random_assignment(n):
         s += random.choice(['M', 'V'])
     return s
 
-best_value = 0
-best_str = ""
+# s = ("M" * 4 + "V" * 4) * 2
+# print(run_one(s), s)
+# s = ("M" * 2 + "V" * 2) * 4
+# print(run_one(s), s)
 
-N = 31
-seq = list(nums for nums in itertools.product([2, 3], repeat=13) if sum(nums) == N-1)
+print(run_one("MMVMMVVV"))
 
-for iter, nums in enumerate(seq):
-    print(iter, len(seq), best_value, best_str)
-    
-    s = ""
-    for i in range(len(nums)):
-        if i % 2 == 0:
-            s += 'M' * nums[i]
-        else:
-            s += 'V' * nums[i]
-    
-    s += '-'
-    
-    if len(s) != N:
-        continue
-    
-    val = run_one(s)
-    
-    if best_value < val:
-        best_value = val
-        best_str = s
-    
-print("COMPLETE")
-print(N, best_value, best_str)
+# best_value = 0
+# best_str = ""
+
+# N = 33 # N = 33, ran repeat=14 up to 1=270
+# seq = list(nums for nums in itertools.product([2, 3], repeat=14) if sum(nums) == N-1)
+#
+# for iter, nums in enumerate(seq):
+#     print(iter, len(seq), best_value, best_str)
+#
+#     good = True
+#     s = ""
+#     for i in range(len(nums)):
+#         if i % 2 == 0:
+#             s += 'M' * nums[i]
+#         else:
+#             s += 'V' * nums[i]
+#         if i > 1 and nums[i] == 3 and nums[i-1] == 3:
+#             good = False
+#     s += '-'
+#
+#     if not good or len(s) != N:
+#         continue
+#
+#     val = run_one(s)
+#
+#     if best_value < val:
+#         best_value = val
+#         best_str = s
+#
+# print("COMPLETE")
+# print(N, best_value, best_str)
