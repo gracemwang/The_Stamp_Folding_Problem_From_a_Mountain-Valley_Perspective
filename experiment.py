@@ -52,13 +52,29 @@ def get_random_assignment(n):
         s += random.choice(['M', 'V'])
     return s
 
-# s = ("M" * 4 + "V" * 4) * 2
-# print(run_one(s), s)
-# s = ("M" * 2 + "V" * 2) * 4
-# print(run_one(s), s)
+x = []
+y = []
 
-print(run_one("MMVMMVVV"))
+n = 20
+for _ in range(1000):
+    s = get_random_assignment(n)
+    p = 1
 
+    curr = 1
+    for i in range(1, n):
+        if s[i] == s[i-1]:
+            curr += 1
+        else:
+            p *= curr
+            curr = 1
+    p *= curr
+    x.append(run_one(s))
+    y.append(p)
+
+plt.scatter(x, y)
+plt.show()
+
+# COMPUTE MAXES
 # best_value = 0
 # best_str = ""
 
