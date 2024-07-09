@@ -52,27 +52,26 @@ def get_random_assignment(n):
         s += random.choice(['M', 'V'])
     return s
 
-x = []
-y = []
+for k in [8]:
+    print(run_one(("M" * k + "V" * k) * 4))
 
-n = 20
-for _ in range(1000):
-    s = get_random_assignment(n)
-    p = 1
-
-    curr = 1
-    for i in range(1, n):
-        if s[i] == s[i-1]:
-            curr += 1
-        else:
-            p *= curr
-            curr = 1
-    p *= curr
-    x.append(run_one(s))
-    y.append(p)
-
-plt.scatter(x, y)
-plt.show()
+# PRODUCT VERSUS COUNT SCATTER
+# x = []
+# y = []
+#
+# b = 4
+# for _ in range(100):
+#     s = ""
+#     p = 1
+#     for i in range(b):
+#         k = random.randint(8, 15)
+#         s += "M" * k if i % 2 == 0 else "V" * k
+#         p *= k
+#     x.append(run_one(s))
+#     y.append(p)
+#
+# plt.scatter(x, y)
+# plt.show()
 
 # COMPUTE MAXES
 # best_value = 0
