@@ -33,7 +33,8 @@ typedef struct Node {
 Interval interval[MAX_VAL];
 List perm;
 Node node[MAX_VAL];
-int N, MV, total=0;
+int N, MV;
+long long int total=0;
 char assignment[MAX_VAL];
 
 //--------------------------------------------------------------------------------
@@ -282,7 +283,7 @@ int RunOnce(int print_perms) {
 
   Gen(2, &node[0], 0, print_perms);
   // printf("%s %d\n", assignment, total);
-  printf("%d\n", total);
+  printf("%lld\n", total);
 }
 
 int RunAll() {
