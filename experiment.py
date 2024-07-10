@@ -52,26 +52,47 @@ def get_random_assignment(n):
         s += random.choice(['M', 'V'])
     return s
 
-for k in [8]:
-    print(run_one(("M" * k + "V" * k) * 4))
+# for k in [8]:
+#     print(run_one(("M" * k + "V" * k) * 4))
 
 # PRODUCT VERSUS COUNT SCATTER
-# x = []
-# y = []
-#
-# b = 4
+x = []
+y = []
+rat = []
+stds = []
+
+b = 3
 # for _ in range(100):
 #     s = ""
 #     p = 1
+#     nums = []
 #     for i in range(b):
-#         k = random.randint(8, 15)
+#         k = random.randint(5, 15)
 #         s += "M" * k if i % 2 == 0 else "V" * k
 #         p *= k
-#     x.append(run_one(s))
+#         nums.append(k)
+#     folds = run_one(s)
+#     x.append(folds)
 #     y.append(p)
-#
-# plt.scatter(x, y)
-# plt.show()
+#     rat.append(folds/p)
+#     stds.append(np.std(nums))
+# p = 1
+for k in range(5, 30):
+    # k = random.randint(5, 30)
+    s = "MM"
+    s += "V" * k
+    p = 4*k
+    s += "MM"
+    folds = run_one(s)
+    x.append(folds)
+    y.append(p)
+# rat.append(folds/p)
+# stds.append(np.std(nums))
+
+plt.scatter(x, y)
+# plt.hist(rat)
+# print(max(rat))
+plt.show()
 
 # COMPUTE MAXES
 # best_value = 0
