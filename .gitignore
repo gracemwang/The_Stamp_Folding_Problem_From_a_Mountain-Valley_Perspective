@@ -4,3 +4,4 @@
 .out
 stamp_meander
 __pycache__/
+.class
