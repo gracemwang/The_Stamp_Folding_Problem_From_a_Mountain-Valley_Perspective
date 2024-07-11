@@ -8,7 +8,7 @@ import itertools
 import random
 import subprocess
 import numpy as np
-
+import math
 import matplotlib.pyplot as plt
 
 '''
@@ -51,6 +51,24 @@ def get_random_assignment(n):
     for i in range(n):
         s += random.choice(['M', 'V'])
     return s
+
+'''
+Convert MV assignment to length of M and V blocks
+'''
+def block_convert(str):
+    first = 0
+    start = str[0]
+    l = []
+    i = 1
+    while(i < len(str)):
+        if str[i] != start:
+            l.append(i - first)
+            first = i
+            start = str[i]
+        i+=1
+    l.append(len(str) - first)
+    m = len(l)
+    return (m**m)*math.prod(l)/math.factorial(m)
 
 # for k in [8]:
 #     print(run_one(("M" * k + "V" * k) * 4))
