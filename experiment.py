@@ -8,7 +8,7 @@ import itertools
 import random
 import subprocess
 import numpy as np
-
+import math
 import matplotlib.pyplot as plt
 
 '''
@@ -52,26 +52,64 @@ def get_random_assignment(n):
         s += random.choice(['M', 'V'])
     return s
 
-for k in [8]:
-    print(run_one(("M" * k + "V" * k) * 4))
+'''
+Convert MV assignment to length of M and V blocks
+'''
+def block_convert(str):
+    first = 0
+    start = str[0]
+    l = []
+    i = 1
+    while(i < len(str)):
+        if str[i] != start:
+            l.append(i - first)
+            first = i
+            start = str[i]
+        i+=1
+    l.append(len(str) - first)
+    m = len(l)
+    return (m**m)*math.prod(l)/math.factorial(m)
+
+# for k in [8]:
+#     print(run_one(("M" * k + "V" * k) * 4))
 
 # PRODUCT VERSUS COUNT SCATTER
-# x = []
-# y = []
-#
-# b = 4
-# for _ in range(100):
-#     s = ""
-#     p = 1
-#     for i in range(b):
-#         k = random.randint(8, 15)
-#         s += "M" * k if i % 2 == 0 else "V" * k
-#         p *= k
-#     x.append(run_one(s))
-#     y.append(p)
-#
-# plt.scatter(x, y)
-# plt.show()
+x = []
+y = []
+rat = []
+
+b = 4
+for _ in range(100):
+    s = ""
+    p = 1
+    tot = 0
+    for i in range(b):
+        k = random.randint(5, 15)
+        tot += k
+        s += "M" * k if i % 2 == 0 else "V" * k
+        # p *= k
+    if (tot % b != 0):
+        adder = (b - (tot % b))
+        k += adder
+        tot += adder
+        s += "M" * adder if tot % 2 == 1 else "V" * adder
+    if (tot % b != 0):
+        print("huh")
+    same = ""
+    for i in range(b):
+        same += "M" * (tot // b) if i % 2 == 0 else "V" * (tot // b)
+    fold1 = run_one(s)
+    fold2 = run_one(same)
+    x.append(fold1)
+    y.append(fold2)
+    if (fold2/fold1 < 1):
+        print("s: " + s)
+        print("same: " + same)
+    rat.append(fold2/fold1)
+# plt.hist(rat)
+print(min(rat))
+plt.scatter(x, y)
+plt.show()
 
 # COMPUTE MAXES
 # best_value = 0
