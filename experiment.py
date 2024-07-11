@@ -59,39 +59,38 @@ def get_random_assignment(n):
 x = []
 y = []
 rat = []
-stds = []
 
-b = 3
-# for _ in range(100):
-#     s = ""
-#     p = 1
-#     nums = []
-#     for i in range(b):
-#         k = random.randint(5, 15)
-#         s += "M" * k if i % 2 == 0 else "V" * k
-#         p *= k
-#         nums.append(k)
-#     folds = run_one(s)
-#     x.append(folds)
-#     y.append(p)
-#     rat.append(folds/p)
-#     stds.append(np.std(nums))
-# p = 1
-for k in range(5, 30):
-    # k = random.randint(5, 30)
-    s = "MM"
-    s += "V" * k
-    p = 4*k
-    s += "MM"
-    folds = run_one(s)
-    x.append(folds)
-    y.append(p)
-# rat.append(folds/p)
-# stds.append(np.std(nums))
-
-plt.scatter(x, y)
+b = 4
+for _ in range(100):
+    s = ""
+    p = 1
+    tot = 0
+    for i in range(b):
+        k = random.randint(5, 15)
+        tot += k
+        s += "M" * k if i % 2 == 0 else "V" * k
+        # p *= k
+    if (tot % b != 0):
+        adder = (b - (tot % b))
+        k += adder
+        tot += adder
+        s += "M" * adder if tot % 2 == 1 else "V" * adder
+    if (tot % b != 0):
+        print("huh")
+    same = ""
+    for i in range(b):
+        same += "M" * (tot // b) if i % 2 == 0 else "V" * (tot // b)
+    fold1 = run_one(s)
+    fold2 = run_one(same)
+    x.append(fold1)
+    y.append(fold2)
+    if (fold2/fold1 < 1):
+        print("s: " + s)
+        print("same: " + same)
+    rat.append(fold2/fold1)
 # plt.hist(rat)
-# print(max(rat))
+print(min(rat))
+plt.scatter(x, y)
 plt.show()
 
 # COMPUTE MAXES
