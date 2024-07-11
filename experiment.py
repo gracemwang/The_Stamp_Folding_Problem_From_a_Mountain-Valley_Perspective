@@ -53,6 +53,21 @@ def get_random_assignment(n):
     return s
 
 '''
+Ex: get_block_sizes("MMMVVMMMV") -> [3, 2, 3, 1]
+'''
+def get_block_sizes(s):
+    sizes = []
+    curr = 1
+    for i in range(1, len(s)):
+        if s[i] == s[i-1]:
+            curr += 1
+        else:
+            sizes.append(curr)
+            curr = 1
+    sizes.append(curr)
+    return sizes
+
+'''
 Convert MV assignment to length of M and V blocks
 '''
 def block_convert(str):
@@ -69,9 +84,6 @@ def block_convert(str):
     l.append(len(str) - first)
     m = len(l)
     return (m**m)*math.prod(l)/math.factorial(m)
-
-# for k in [8]:
-#     print(run_one(("M" * k + "V" * k) * 4))
 
 # PRODUCT VERSUS COUNT SCATTER
 x = []

@@ -4,8 +4,10 @@ Analyze counts.txt and make a histogram of the counts.
 
 import matplotlib.pyplot as plt
 import numpy as np
+import random
+from experiment import get_block_sizes
 
-N = 22
+N = 20
 
 strings = {}
 numbers = {}
@@ -22,8 +24,10 @@ for n in range(4, N+1):
         strings[n] = []
         for i, line in enumerate(file):
             if ' ' in line:
-                numbers[n].append(int(line.strip().split(' ')[1]))
                 strings[n].append(line.strip().split(' ')[0])
+                # numbers[n].append(int(line.strip().split(' ')[1]))
+                numbers[n].append(np.prod(get_block_sizes(strings[n][-1])))
+                numbers[-1] *= random.randint(1, )
             else:
                 numbers[n].append(int(line.strip()))
                 strings[n].append(get_assignment(i, n-1))
@@ -33,18 +37,17 @@ for n in range(4, N+1):
     # print(numbers[n])
 # print('\n'.join(str(maxes[n]) for n in range(4, N+1)))
 
-    print(len(numbers[n]))
-    print(n, end=' ')
-    for i in range(len(numbers[n])):
-        if numbers[n][i] == maxes[n]:
-            print(strings[n][i], end=' ')
-    print()
+    # print(len(numbers[n]))
+    # print(n, end=' ')
+    # for i in range(len(numbers[n])):
+    #     if numbers[n][i] == maxes[n]:
+    #         print(strings[n][i], end=' ')
+    # print()
 
-# for n in range(10, 23):
-#     plt.figure(figsize=(10, 6))
-#     plt.hist(numbers[n], bins=min(maxes[n], 100), edgecolor='black')
-#     plt.xlabel('# of ways to fold')
-#     plt.ylabel("# of MV assignments that achieve X ways to fold")
-#     plt.title("The 1x{} case".format(n))
-#     plt.savefig('1xn_figures/1x{}_distribution.jpg'.format(n))
-#     # plt.show()
+plt.figure(figsize=(10, 6))
+plt.hist(numbers[n], bins=min(maxes[n], 50), edgecolor='black')
+plt.xlabel('# of ways to fold')
+plt.ylabel("# of MV assignments that achieve X ways to fold")
+plt.title("The 1x{} case".format(n))
+# plt.savefig('1xn_figures/1x{}_distribution.jpg'.format(n))
+plt.show()
