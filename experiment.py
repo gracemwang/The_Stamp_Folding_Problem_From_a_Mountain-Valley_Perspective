@@ -241,3 +241,9 @@ for i in range(len(cas)):
     if (ratio < 1):
         print("a: " + str_a[i])
         print("b: " + str_b[i])
+
+def fold_once(s):
+    for i in range(len(s)):
+        if (i >= len(s)/2):
+            for j in range(i+1, len(s)):
+                if s[j] != 
