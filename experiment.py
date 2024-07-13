@@ -74,42 +74,40 @@ def block_convert(str):
 #     print(run_one(("M" * k + "V" * k) * 4))
 
 # PRODUCT VERSUS COUNT SCATTER
-x = []
-y = []
-rat = []
+# x = []
+# y = []
+# rat = []
 
-b = 4
-for _ in range(100):
-    s = ""
-    p = 1
-    tot = 0
-    for i in range(b):
-        k = random.randint(5, 15)
-        tot += k
-        s += "M" * k if i % 2 == 0 else "V" * k
-        # p *= k
-    if (tot % b != 0):
-        adder = (b - (tot % b))
-        k += adder
-        tot += adder
-        s += "M" * adder if tot % 2 == 1 else "V" * adder
-    if (tot % b != 0):
-        print("huh")
-    same = ""
-    for i in range(b):
-        same += "M" * (tot // b) if i % 2 == 0 else "V" * (tot // b)
-    fold1 = run_one(s)
-    fold2 = run_one(same)
-    x.append(fold1)
-    y.append(fold2)
-    if (fold2/fold1 < 1):
-        print("s: " + s)
-        print("same: " + same)
-    rat.append(fold2/fold1)
+# b = 4
+# for _ in range(100):
+#     s = ""
+#     p = 1
+#     tot = 0
+#     for i in range(b):
+#         k = random.randint(5, 15)
+#         tot += k
+#         s += "M" * k if i % 2 == 0 else "V" * k
+#         # p *= k
+#     if (tot % b != 0):
+#         adder = (b - (tot % b))
+#         k += adder
+#         tot += adder
+#         s += "M" * adder if tot % 2 == 1 else "V" * adder
+#     same = ""
+#     for i in range(b):
+#         same += "M" * (tot // b) if i % 2 == 0 else "V" * (tot // b)
+#     fold1 = run_one(s)
+#     fold2 = run_one(same)
+#     x.append(fold1)
+#     y.append(fold2)
+#     if (fold2/fold1 < 1):
+#         print("s: " + s)
+#         print("same: " + same)
+#     rat.append(fold2/fold1)
 # plt.hist(rat)
-print(min(rat))
-plt.scatter(x, y)
-plt.show()
+# print(min(rat))
+# plt.scatter(x, y)
+# plt.show()
 
 # COMPUTE MAXES
 # best_value = 0
@@ -143,3 +141,91 @@ plt.show()
 #
 # print("COMPLETE")
 # print(N, best_value, best_str)
+
+
+# appending more ms
+# x = []
+# y = []
+# data = []
+
+# b = 3
+# adder = 30
+# outs = []
+# maxes = []
+
+# for _ in range(100):
+#     nums = []
+#     diffs = []
+#     s = ""
+#     sameplace = 0
+#     for i in range(b):
+#         k = random.randint(5, 10)
+#         s += "M" * k if i % 2 == 0 else "V" * k
+#         if i % 2 == 0:
+#             first = k
+#         else:
+#             second = k
+#     nums.append(run_one(s))
+#     for rounds in range(adder):
+#         if b % 2 == 0:
+#             s += "M"
+#         else:
+#             s += "V"
+#         nums.append(run_one(s))
+#     for i in range(len(nums) -1):
+#         diffs.append(nums[i+1]-nums[i])
+#     for i in range(len(diffs) - 1):
+#         if (diffs[i+1] == diffs[i]):
+#             sameplace = i
+#             break
+#         if (diffs[i+1] < diffs[i]):
+#             maxplace = i
+#             break
+#     if sameplace == 0:
+#         sameplace = len(diffs)
+#     outs.append(sameplace - max(first, second))
+#     maxes.append(maxplace)
+#     # print(maxplace)
+#     # print(diffs)
+# # print(outs)
+# print(max(outs))
+# print(max(maxes))
+# print(maxes)
+
+#Conj: c(AB) >= c(A)c(B)
+x = []
+y = []
+
+(a, b) = (5, 6)
+cas = []
+cbs = []
+cabs = []
+ratios = []
+
+str_a = []
+str_b = []
+
+for _ in range(100):
+
+    s_a = get_random_assignment(a)
+
+    if (s_a[len(s_a)-1] == "M"):
+        s_b = "V" + get_random_assignment(b - 1)
+    else:
+        s_b = "M" + get_random_assignment(b - 1)
+    
+
+    str_a.append(s_a)
+    str_b.append(s_b)
+
+    cas.append(run_one(s_a))
+    cbs.append(run_one(s_b))
+
+    joined = s_a + s_b
+    cabs.append(run_one(joined))
+
+for i in range(len(cas)):
+    ratio = cabs[i] / cas[i] / cbs[i]
+    if (ratio < 1):
+        print("a: " + str_a[i])
+        print("b: " + str_b[i])
