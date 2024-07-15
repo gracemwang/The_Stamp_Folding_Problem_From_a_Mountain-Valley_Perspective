@@ -205,39 +205,51 @@ def block_convert(str):
 # print(maxes)
 
 #Conj: c(AB) >= c(A)c(B)
-x = []
-y = []
+# x = []
+# y = []
+#
+# (a, b) = (5, 6)
+# cas = []
+# cbs = []
+# cabs = []
+# ratios = []
+#
+# str_a = []
+# str_b = []
+#
+# for _ in range(100):
+#
+#     s_a = get_random_assignment(a)
+#
+#     if (s_a[len(s_a)-1] == "M"):
+#         s_b = "V"*b
+#     else:
+#         s_b = "M"*b
+#
+#
+#     str_a.append(s_a)
+#     str_b.append(s_b)
+#
+#     cas.append(run_one(s_a))
+#     cbs.append(run_one(s_b))
+#
+#     joined = s_a + s_b
+#     cabs.append(run_one(joined))
+#
+# for i in range(len(cas)):
+#     ratio = cabs[i] / cas[i] / cbs[i]
+#     if (ratio < 1):
+#         print("a: " + str_a[i]+"; "+str(cas[i]))
+#         print("b: " + str_b[i]+"; "+str(cbs[i]))
+#         print(cabs[i])
 
-(a, b) = (5, 6)
-cas = []
-cbs = []
-cabs = []
-ratios = []
 
-str_a = []
-str_b = []
+# while(1):
+#     s = ""
+#     for i in range(5):
+#         s = s+'M'*random.randint(2, 8)+'V'*random.randint(2,8)
+#     count = run_one(s)
+#     if (count < math.prod(get_block_sizes(s))):
+#         print(s)
 
-for _ in range(100):
-
-    s_a = get_random_assignment(a)
-
-    if (s_a[len(s_a)-1] == "M"):
-        s_b = "V" + get_random_assignment(b - 1)
-    else:
-        s_b = "M" + get_random_assignment(b - 1)
-    
-
-    str_a.append(s_a)
-    str_b.append(s_b)
-
-    cas.append(run_one(s_a))
-    cbs.append(run_one(s_b))
-
-    joined = s_a + s_b
-    cabs.append(run_one(joined))
-
-for i in range(len(cas)):
-    ratio = cabs[i] / cas[i] / cbs[i]
-    if (ratio < 1):
-        print("a: " + str_a[i])
-        print("b: " + str_b[i])
+print(run_one('V'*7+'M'+'V'*6+'M'+'V'*6))
