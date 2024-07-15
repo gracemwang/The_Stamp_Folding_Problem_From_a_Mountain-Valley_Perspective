@@ -252,4 +252,14 @@ def block_convert(str):
 #     if (count < math.prod(get_block_sizes(s))):
 #         print(s)
 
-print(run_one('V'*7+'M'+'V'*6+'M'+'V'*6))
+for i in range(len(cas)):
+    ratio = cabs[i] / cas[i] / cbs[i]
+    if (ratio < 1):
+        print("a: " + str_a[i])
+        print("b: " + str_b[i])
+
+def fold_once(s):
+    for i in range(len(s)):
+        if (i >= len(s)/2):
+            for j in range(i+1, len(s)):
+                if s[j] !=
