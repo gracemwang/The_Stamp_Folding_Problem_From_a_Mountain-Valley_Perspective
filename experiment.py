@@ -252,14 +252,17 @@ def block_convert(str):
 #     if (count < math.prod(get_block_sizes(s))):
 #         print(s)
 
-for i in range(len(cas)):
-    ratio = cabs[i] / cas[i] / cbs[i]
-    if (ratio < 1):
-        print("a: " + str_a[i])
-        print("b: " + str_b[i])
+# for i in range(len(cas)):
+#     ratio = cabs[i] / cas[i] / cbs[i]
+#     if (ratio < 1):
+#         print("a: " + str_a[i])
+#         print("b: " + str_b[i])
 
-def fold_once(s):
-    for i in range(len(s)):
-        if (i >= len(s)/2):
-            for j in range(i+1, len(s)):
-                if s[j] !=
+data = [[0]*10 for _ in range(10)]
+
+for a in range(10, 20):
+    for b in range(10, 20):
+        data[a-10][b-10] = run_one('M'*a+'V'*7+'M'*b)
+
+for i in data:
+    print(i)
