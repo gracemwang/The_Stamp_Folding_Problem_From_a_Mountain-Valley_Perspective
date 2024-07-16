@@ -204,16 +204,6 @@ def block_convert(str):
 # print(max(maxes))
 # print(maxes)
 
-<<<<<<< HEAD
-# Conj: c(AB) >= c(A)c(B)
-x = []
-y = []
-
-b = 4
-
-prods = []
-strings = []
-=======
 #Conj: c(AB) >= c(A)c(B)
 # x = []
 # y = []
@@ -261,7 +251,6 @@ strings = []
 #     count = run_one(s)
 #     if (count < math.prod(get_block_sizes(s))):
 #         print(s)
->>>>>>> 5d0ff5cad017d2d92aa77852884612a57e70da9b
 
 # for i in range(len(cas)):
 #     ratio = cabs[i] / cas[i] / cbs[i]
@@ -269,35 +258,6 @@ strings = []
 #         print("a: " + str_a[i])
 #         print("b: " + str_b[i])
 
-<<<<<<< HEAD
-    s = ""
-    mini = 11
-    product = 1
-    for i in range(b):
-        k = random.randint(1, 10)
-        s += "M"*k if i % 2 == 0 else "V"*k
-        if (k < mini):
-            mini = k
-        product *= mini
-    
-    prods.append(product)
-
-    counts = run_one(s)
-
-    strings.append(counts)
-
-    if (product > counts):
-        print("string: " + s)
-    
-plt.scatter(prods, strings)
-plt.show()
-
-# def fold_once(s):
-#     for i in range(len(s)):
-#         if (i >= len(s)/2):
-#             for j in range(i+1, len(s)):
-#                 if s[j] != 
-=======
 data = [[0]*10 for _ in range(10)]
 
 for a in range(10, 20):
@@ -306,4 +266,3 @@ for a in range(10, 20):
 
 for i in data:
     print(i)
->>>>>>> 5d0ff5cad017d2d92aa77852884612a57e70da9b
