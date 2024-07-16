@@ -204,46 +204,106 @@ def block_convert(str):
 # print(max(maxes))
 # print(maxes)
 
-#Conj: c(AB) >= c(A)c(B)
+<<<<<<< HEAD
+# Conj: c(AB) >= c(A)c(B)
 x = []
 y = []
 
-(a, b) = (5, 6)
-cas = []
-cbs = []
-cabs = []
-ratios = []
+b = 4
 
-str_a = []
-str_b = []
+prods = []
+strings = []
+=======
+#Conj: c(AB) >= c(A)c(B)
+# x = []
+# y = []
+#
+# (a, b) = (5, 6)
+# cas = []
+# cbs = []
+# cabs = []
+# ratios = []
+#
+# str_a = []
+# str_b = []
+#
+# for _ in range(100):
+#
+#     s_a = get_random_assignment(a)
+#
+#     if (s_a[len(s_a)-1] == "M"):
+#         s_b = "V"*b
+#     else:
+#         s_b = "M"*b
+#
+#
+#     str_a.append(s_a)
+#     str_b.append(s_b)
+#
+#     cas.append(run_one(s_a))
+#     cbs.append(run_one(s_b))
+#
+#     joined = s_a + s_b
+#     cabs.append(run_one(joined))
+#
+# for i in range(len(cas)):
+#     ratio = cabs[i] / cas[i] / cbs[i]
+#     if (ratio < 1):
+#         print("a: " + str_a[i]+"; "+str(cas[i]))
+#         print("b: " + str_b[i]+"; "+str(cbs[i]))
+#         print(cabs[i])
 
-for _ in range(100):
 
-    s_a = get_random_assignment(a)
+# while(1):
+#     s = ""
+#     for i in range(5):
+#         s = s+'M'*random.randint(2, 8)+'V'*random.randint(2,8)
+#     count = run_one(s)
+#     if (count < math.prod(get_block_sizes(s))):
+#         print(s)
+>>>>>>> 5d0ff5cad017d2d92aa77852884612a57e70da9b
 
-    if (s_a[len(s_a)-1] == "M"):
-        s_b = "V" + get_random_assignment(b - 1)
-    else:
-        s_b = "M" + get_random_assignment(b - 1)
+# for i in range(len(cas)):
+#     ratio = cabs[i] / cas[i] / cbs[i]
+#     if (ratio < 1):
+#         print("a: " + str_a[i])
+#         print("b: " + str_b[i])
+
+<<<<<<< HEAD
+    s = ""
+    mini = 11
+    product = 1
+    for i in range(b):
+        k = random.randint(1, 10)
+        s += "M"*k if i % 2 == 0 else "V"*k
+        if (k < mini):
+            mini = k
+        product *= mini
     
+    prods.append(product)
 
-    str_a.append(s_a)
-    str_b.append(s_b)
+    counts = run_one(s)
 
-    cas.append(run_one(s_a))
-    cbs.append(run_one(s_b))
+    strings.append(counts)
 
-    joined = s_a + s_b
-    cabs.append(run_one(joined))
+    if (product > counts):
+        print("string: " + s)
+    
+plt.scatter(prods, strings)
+plt.show()
 
-for i in range(len(cas)):
-    ratio = cabs[i] / cas[i] / cbs[i]
-    if (ratio < 1):
-        print("a: " + str_a[i])
-        print("b: " + str_b[i])
+# def fold_once(s):
+#     for i in range(len(s)):
+#         if (i >= len(s)/2):
+#             for j in range(i+1, len(s)):
+#                 if s[j] != 
+=======
+data = [[0]*10 for _ in range(10)]
 
-def fold_once(s):
-    for i in range(len(s)):
-        if (i >= len(s)/2):
-            for j in range(i+1, len(s)):
-                if s[j] != 
+for a in range(10, 20):
+    for b in range(10, 20):
+        data[a-10][b-10] = run_one('M'*a+'V'*7+'M'*b)
+
+for i in data:
+    print(i)
+>>>>>>> 5d0ff5cad017d2d92aa77852884612a57e70da9b
