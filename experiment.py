@@ -98,17 +98,16 @@ def run_random(b, r, l, u):
 
 
 '''
-Finds maximally foldable MV assignment of length N that satisfies:
+Finds maximally foldable MV assignment of length N-1 that satisfies:
 - Only contains blocks of size 2 and 3
 - Does not contain two consecutive blocks of size 3
+- rep = number of blocks
 '''
-# N = 33, ran repeat=14 up to 1=270
-# COMPUTE MAXES
-def max_restricted(N):
+def max_restricted(N, rep):
     best_value = 0
     best_str = ""
 
-    seq = list(nums for nums in itertools.product([2, 3], repeat=14) if sum(nums) == N-1)
+    seq = list(nums for nums in itertools.product([2, 3], repeat=rep) if sum(nums) == N-1)
 
     for iter, nums in enumerate(seq):
         print(iter, len(seq), best_value, best_str)
