@@ -1,4 +1,6 @@
 """
+Helper functions to gather data and test conjectures on various MV assignments.
+
 To use this, compile stamp_meander.c to an exec called stamp_meander:
 gcc stamp_meander.c -o stamp_meander.
 
@@ -12,13 +14,14 @@ import math
 import matplotlib.pyplot as plt
 
 '''
-Run all the assignments for 1xn. Returns a list of counts in lexicographic order (V = 0, M = 1).
+Run all the assignments for 1xn.
+Returns a list of counts in lexicographic order (V = 0, M = 1).
 '''
 def run_all(n):
     return list(map(int, subprocess.Popen(["./stamp_meander", "0", str(n)], stdout=subprocess.PIPE).communicate()[0].decode().split("\n")[:-1]))
 
 '''
-Run a particular assignment and returns the count
+Run a particular assignment (string of M's and V's) and returns the count
 '''
 def run_one(assignment):
     return int(subprocess.Popen(["./stamp_meander", "1", assignment], stdout=subprocess.PIPE).communicate()[0].decode())
@@ -33,7 +36,8 @@ def get_perms(assignment):
     return perms
 
 '''
-Convert from the index in an array of counts to the assignment at that index. Example: get_assignment(12, 6) -> "VVMMVV"
+Convert from an integer to a binary string of length n, with V = 0 and M = 1.
+Example: get_assignment(12, 6) -> "VVMMVV"
 '''
 def get_assignment(index, n):
     return ("{0:0"+str(n)+"b}").format(index, n).replace('0', 'V').replace('1', 'M')
@@ -53,6 +57,7 @@ def get_random_assignment(n):
     return s
 
 '''
+Returns the sizes of each "block" of identical characters.
 Ex: get_block_sizes("MMMVVMMMV") -> [3, 2, 3, 1]
 '''
 def get_block_sizes(s):
@@ -68,201 +73,102 @@ def get_block_sizes(s):
     return sizes
 
 '''
-Convert MV assignment to length of M and V blocks
+Graphs product of block lengths vs num of ways each string folds
+b = number of blocks, r = number of trials
+[l, u) = range of values for each block length
 '''
-def block_convert(str):
-    first = 0
-    start = str[0]
-    l = []
-    i = 1
-    while(i < len(str)):
-        if str[i] != start:
-            l.append(i - first)
-            first = i
-            start = str[i]
-        i+=1
-    l.append(len(str) - first)
-    m = len(l)
-    return (m**m)*math.prod(l)/math.factorial(m)
+def run_random(b, r, l, u):
+    x = []
+    y = []
 
-# PRODUCT VERSUS COUNT SCATTER
-# x = []
-# y = []
-# rat = []
+    for _ in range(r):
+        s = ""
+        prod = 1
 
-# b = 4
-# for _ in range(100):
-#     s = ""
-#     p = 1
-#     tot = 0
-#     for i in range(b):
-#         k = random.randint(5, 15)
-#         tot += k
-#         s += "M" * k if i % 2 == 0 else "V" * k
-#         # p *= k
-#     if (tot % b != 0):
-#         adder = (b - (tot % b))
-#         k += adder
-#         tot += adder
-#         s += "M" * adder if tot % 2 == 1 else "V" * adder
-#     same = ""
-#     for i in range(b):
-#         same += "M" * (tot // b) if i % 2 == 0 else "V" * (tot // b)
-#     fold1 = run_one(s)
-#     fold2 = run_one(same)
-#     x.append(fold1)
-#     y.append(fold2)
-#     if (fold2/fold1 < 1):
-#         print("s: " + s)
-#         print("same: " + same)
-#     rat.append(fold2/fold1)
-# plt.hist(rat)
-# print(min(rat))
-# plt.scatter(x, y)
-# plt.show()
+        for i in range(b):
+            k = random.randint(l, u)
+            s += "M" * k if i % 2 == 0 else "V" * k
+            prod *= k
+        
+        x.append(prod)
+        y.append(run_one(s))
 
+    plt.scatter(x, y)
+    plt.show()
+
+
+'''
+Finds maximally foldable MV assignment of length N that satisfies:
+- Only contains blocks of size 2 and 3
+- Does not contain two consecutive blocks of size 3
+'''
+# N = 33, ran repeat=14 up to 1=270
 # COMPUTE MAXES
-# best_value = 0
-# best_str = ""
+def max_restricted(N):
+    best_value = 0
+    best_str = ""
 
-# N = 33 # N = 33, ran repeat=14 up to 1=270
-# seq = list(nums for nums in itertools.product([2, 3], repeat=14) if sum(nums) == N-1)
-#
-# for iter, nums in enumerate(seq):
-#     print(iter, len(seq), best_value, best_str)
-#
-#     good = True
-#     s = ""
-#     for i in range(len(nums)):
-#         if i % 2 == 0:
-#             s += 'M' * nums[i]
-#         else:
-#             s += 'V' * nums[i]
-#         if i > 1 and nums[i] == 3 and nums[i-1] == 3:
-#             good = False
-#     s += '-'
-#
-#     if not good or len(s) != N:
-#         continue
-#
-#     val = run_one(s)
-#
-#     if best_value < val:
-#         best_value = val
-#         best_str = s
-#
-# print("COMPLETE")
-# print(N, best_value, best_str)
+    seq = list(nums for nums in itertools.product([2, 3], repeat=14) if sum(nums) == N-1)
 
+    for iter, nums in enumerate(seq):
+        print(iter, len(seq), best_value, best_str)
 
-# appending more ms
-# x = []
-# y = []
-# data = []
+        good = True
+        s = ""
+        for i in range(len(nums)):
+            if i % 2 == 0:
+                s += 'M' * nums[i]
+            else:
+                s += 'V' * nums[i]
+            if i > 1 and nums[i] == 3 and nums[i-1] == 3:
+                good = False
+        s += '-'
 
-# b = 3
-# adder = 30
-# outs = []
-# maxes = []
+        if not good or len(s) != N:
+            continue
 
-# for _ in range(100):
-#     nums = []
-#     diffs = []
-#     s = ""
-#     sameplace = 0
-#     for i in range(b):
-#         k = random.randint(5, 10)
-#         s += "M" * k if i % 2 == 0 else "V" * k
-#         if i % 2 == 0:
-#             first = k
-#         else:
-#             second = k
-#     nums.append(run_one(s))
-#     for rounds in range(adder):
-#         if b % 2 == 0:
-#             s += "M"
-#         else:
-#             s += "V"
-#         nums.append(run_one(s))
-#     for i in range(len(nums) -1):
-#         diffs.append(nums[i+1]-nums[i])
-#     for i in range(len(diffs) - 1):
-#         if (diffs[i+1] == diffs[i]):
-#             sameplace = i
-#             break
-#         if (diffs[i+1] < diffs[i]):
-#             maxplace = i
-#             break
-#     if sameplace == 0:
-#         sameplace = len(diffs)
-#     outs.append(sameplace - max(first, second))
-#     maxes.append(maxplace)
-#     # print(maxplace)
-#     # print(diffs)
-# # print(outs)
-# print(max(outs))
-# print(max(maxes))
-# print(maxes)
+        val = run_one(s)
 
-#Conj: c(AB) >= c(A)c(B)
-# x = []
-# y = []
-#
-# (a, b) = (5, 6)
-# cas = []
-# cbs = []
-# cabs = []
-# ratios = []
-#
-# str_a = []
-# str_b = []
-#
-# for _ in range(100):
-#
-#     s_a = get_random_assignment(a)
-#
-#     if (s_a[len(s_a)-1] == "M"):
-#         s_b = "V"*b
-#     else:
-#         s_b = "M"*b
-#
-#
-#     str_a.append(s_a)
-#     str_b.append(s_b)
-#
-#     cas.append(run_one(s_a))
-#     cbs.append(run_one(s_b))
-#
-#     joined = s_a + s_b
-#     cabs.append(run_one(joined))
-#
-# for i in range(len(cas)):
-#     ratio = cabs[i] / cas[i] / cbs[i]
-#     if (ratio < 1):
-#         print("a: " + str_a[i]+"; "+str(cas[i]))
-#         print("b: " + str_b[i]+"; "+str(cbs[i]))
-#         print(cabs[i])
+        if best_value < val:
+            best_value = val
+            best_str = s
 
+    print("COMPLETE")
+    print(N, best_value, best_str)
 
-# while(1):
-#     s = ""
-#     for i in range(5):
-#         s = s+'M'*random.randint(2, 8)+'V'*random.randint(2,8)
-#     count = run_one(s)
-#     if (count < math.prod(get_block_sizes(s))):
-#         print(s)
+'''
+Checks all MV assignments of length n for the following condition:
+c(a_1, a_2, ..., a_m) <= prod(index where M changes to V or vice versa)
+'''
+def ub_conj_1(n):
+    for i in range(2 ** n):
+        s = get_assignment(i, n)
+        arr = get_block_sizes(s)
+        prod = 1
+        sum_a = 0
+        for b in arr:
+            sum_a += b
+            prod *= sum_a
+        
+        if (run_one(s) > prod):
+            print(s)
+        
+    print("Done!")
 
-# for i in range(len(cas)):
-#     ratio = cabs[i] / cas[i] / cbs[i]
-#     if (ratio < 1):
-#         print("a: " + str_a[i])
-#         print("b: " + str_b[i])
-
-data = [[0]*10 for _ in range(10)]
-
-for a in range(10, 20):
-    for b in range(10, 20):
-        data[a-10][b-10] = run_one('M'*a+'V'*7+'M'*b)
-
-for i in data:
-    print(i)
+'''
+Checks all MV assignments of length n for the following condition:
+c(a_1, a_2, ..., a_m) <= (m^m/m!) x (a_1 x a_2 x ... x a_m)
+'''
+def ub_conj_2(n):
+    for i in range(2 ** n):
+        s = get_assignment(i, n)
+        arr = get_block_sizes(s)
+        m = len(arr)
+        prod = 1
+        for b in arr:
+            prod *= b
+        
+        if (run_one(s) > (m ** m) / (math.factorial(m)) * prod):
+            print(s)
+        
+    print("Done!")
