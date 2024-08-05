@@ -1,10 +1,11 @@
-Software to experiment with 2 x n stamp maps. Each code file has a header describing its purpose. Newcomers should read `fold_verification.py` and `make_poset.py` first. `count_w_sage.ipynb` simply takes these two and their methods, and incorporates an important Sage function that can generate the linear extensions of a poset quickly. 
+### The Stamp Folding Problem From a Mountain-Valley Perspective
 
-The data folder contains some results we have found useful to analyze. Files labeled `2x{n}_counts.txt` list the concise representation of an assignmen followed by the number of ways to fold it. The files with `foldable` in the name instead list `True` or `False` indicating the foldability.
+This repository contains the files used to generate experimental data for The Stamp Folding research group at MathILy-EST 2024. The project's paper can be found **here** [PUT LINK].
 
-Potential directions for future experimental efforts:
-- implement the result in Nishat 2009 that would reduce the verification from quadratic to linear
-- use optimization software and encode the constraints as an MILP or other program, which may or may not run faster
-- continue to explore the substring exclusion idea (see `gen_bad.ipynb`) to speed things up
+`stamp_meander.c` is a modified version of code [written by Joe Sawada](https://www.socs.uoguelph.ca/~sawada/programs.html) that can count the valid layer orderings that respect an inputted mountain-valley assignment.
 
-Fast generation of valid foldings of a 1 x n stamp map, adapting code by Sawada, in `stamp_meander.c`. Outputed data is in `1xn_data`
+`experiment.py` is a wrapper around `stamp_meander.c` to allow for easy analysis and visualization of the results.
+
+`data_figs/1xn_data` contains the raw counts for all assignments, as well other sequences.
+
+`data_figs/1xn_figures` contains the histograms of the distribution of counts and figures from other experiments.
