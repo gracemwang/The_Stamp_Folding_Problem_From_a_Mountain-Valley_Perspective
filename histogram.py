@@ -1,5 +1,5 @@
 """
-Analyze counts.txt and make a histogram of the counts.
+Create a histogram of the counts for all assignments on the 1xn strip.
 """
 
 import matplotlib.pyplot as plt
@@ -32,17 +32,6 @@ for n in range(4, N+1):
                 numbers[n].append(int(line.strip()))
                 strings[n].append(get_assignment(i, n-1))
         maxes[n] = max(numbers[n])
-
-    # print(strings[n])
-    # print(numbers[n])
-# print('\n'.join(str(maxes[n]) for n in range(4, N+1)))
-
-    # print(len(numbers[n]))
-    # print(n, end=' ')
-    # for i in range(len(numbers[n])):
-    #     if numbers[n][i] == maxes[n]:
-    #         print(strings[n][i], end=' ')
-    # print()
 
 plt.figure(figsize=(10, 6))
 plt.hist(numbers[n], bins=min(maxes[n], 50), edgecolor='black')
