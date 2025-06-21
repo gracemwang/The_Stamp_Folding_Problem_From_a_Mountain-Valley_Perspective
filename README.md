@@ -1,6 +1,6 @@
 ### The Stamp Folding Problem From a Mountain-Valley Perspective
 
-This repository contains the files used to generate experimental data for The Stamp Folding research group at MathILy-EST 2024. The project's paper can be found **here** [https://arxiv.org/abs/2503.23661].
+This repository contains the files used to generate experimental data for The Stamp Folding research group at MathILy-EST 2024. The project's paper can be found [here][https://arxiv.org/abs/2503.23661].
 
 `stamp_meander.c` is a modified version of code [written by Joe Sawada](https://www.socs.uoguelph.ca/~sawada/programs.html) that can count the valid layer orderings that respect an inputted mountain-valley assignment.
 
